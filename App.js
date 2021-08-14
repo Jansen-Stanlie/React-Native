@@ -1,10 +1,18 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {Button, Input} from 'react-native-elements';
-import {View, Text, StyleSheet, SafeAreaView, Alert} from 'react-native';
+import {Button, Input, ListItem} from 'react-native-elements';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Illustration from './undraw.svg';
+import CallAPIVanilla from './Pages/CallApiAxios';
 
 class App extends Component {
   constructor(props) {
@@ -12,17 +20,36 @@ class App extends Component {
     this.state = {
       email: '',
       password: '',
+      loginStat: true,
     };
   }
-  setValue = event => {
-    // this.setState({[e.target.name]: e.target.value});
-    const name = event.target.name;
-    // console.log('asdaxzcvzv', e.target.name);
-    console.log(name);
+
+  onButtonPress = () => {
+    const email = 'jansen@gmail.com';
+    const password = 'Jansen@2410';
+    if (email === this.state.email && password === this.state.password) {
+      Alert.alert('Success', 'silahkan masuk');
+      return this.setState({
+        loginStat: true,
+      });
+    }
+    return Alert.alert('Failed', 'silahkan keluar');
   };
-  onButtonPress = () => console.log('asdad', this.state.email);
 
   render() {
+    if (this.state.loginStat) {
+      return (
+        <SafeAreaProvider>
+          <SafeAreaView>
+            <ScrollView>
+              <View>
+                <CallAPIVanilla />
+              </View>
+            </ScrollView>
+          </SafeAreaView>
+        </SafeAreaProvider>
+      );
+    }
     return (
       <SafeAreaProvider>
         <SafeAreaView
@@ -36,8 +63,8 @@ class App extends Component {
             <Input
               type="text"
               placeholder="Username"
-              name="email"
-              onChangeText={this.setValue}
+              // errorMessage={this.state.errorUsername}
+              onChangeText={value => this.setState({email: value})}
               value={this.state.email}
               leftIcon={<Icon name="user" size={24} color="black" />}
             />
@@ -45,7 +72,7 @@ class App extends Component {
               type="Password"
               placeholder="Password"
               name="password"
-              onChangeText={this.setValue}
+              onChangeText={value => this.setState({password: value})}
               secureTextEntry={true}
               leftIcon={<Icon name="key" size={24} color="black" />}
             />
