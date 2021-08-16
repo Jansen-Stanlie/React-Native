@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {Button, Input, SpeedDial} from 'react-native-elements';
+import {Button, Input} from 'react-native-elements';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
@@ -36,8 +36,8 @@ class App extends Component {
     this.state = {
       email: '',
       password: '',
-      loginStat: true,
-      open: false,
+      loginStat: false,
+      open: true,
     };
   }
 
@@ -54,42 +54,44 @@ class App extends Component {
   };
 
   render() {
-    const {open} = this.state;
-    if (this.state.loginStat) {
-      return (
-        <NavigationContainer>
+    <NavigationContainer>
+      {this.state.loginStat ? (
+        <>
           <Stack.Navigator initialRouteName="About">
-            <Stack.Screen name="Login" component={CallAPIVanilla} />
+            <Stack.Screen name="Home" component={CallAPIVanilla} />
             <Stack.Screen name="About" component={Home} />
           </Stack.Navigator>
-        </NavigationContainer>
-      );
-    }
-    return (
-      <SafeAreaProvider>
-        <View style={{flex: 2}}>
-          <Text style={styles.title}>Please Login</Text>
-          <Illustration width={354} height={125} margin={20} />
-          <Input
-            type="text"
-            placeholder="Username"
-            // errorMessage={this.state.errorUsername}
-            onChangeText={value => this.setState({email: value})}
-            value={this.state.email}
-            leftIcon={<Icon name="user" size={24} color="black" />}
-          />
-          <Input
-            type="Password"
-            placeholder="Password"
-            name="password"
-            onChangeText={value => this.setState({password: value})}
-            secureTextEntry={true}
-            leftIcon={<Icon name="key" size={24} color="black" />}
-          />
-          <Button title="Login" type="outline" onPress={this.onButtonPress} />
-        </View>
-      </SafeAreaProvider>
-    );
+        </>
+      ) : (
+        <SafeAreaView
+          style={{
+            flex: 1,
+            justifyContent: 'center',
+          }}>
+          <View style={{flex: 2}}>
+            <Text style={styles.title}>Please Login</Text>
+            <Illustration width={354} height={125} margin={20} />
+            <Input
+              type="text"
+              placeholder="Username"
+              // errorMessage={this.state.errorUsername}
+              onChangeText={value => this.setState({email: value})}
+              value={this.state.email}
+              leftIcon={<Icon name="user" size={24} color="black" />}
+            />
+            <Input
+              type="Password"
+              placeholder="Password"
+              name="password"
+              onChangeText={value => this.setState({password: value})}
+              secureTextEntry={true}
+              leftIcon={<Icon name="key" size={24} color="black" />}
+            />
+            <Button title="Login" type="outline" onPress={this.onButtonPress} />
+          </View>
+        </SafeAreaView>
+      )}
+    </NavigationContainer>;
   }
 }
 const styles = StyleSheet.create({

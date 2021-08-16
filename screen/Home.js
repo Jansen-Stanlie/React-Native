@@ -14,10 +14,13 @@ import {
   ListItem,
   Avatar,
   Button,
+  SpeedDial,
 } from 'react-native-elements';
 import Axios from 'axios';
 import {ScrollView} from 'react-native';
 import SearchBar from 'react-native-elements/dist/searchbar/SearchBar-ios';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native';
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +49,7 @@ class Home extends Component {
           dataUser: newData,
           page,
           refresh: false,
+          open: false,
         });
       });
   };
@@ -74,6 +78,7 @@ class Home extends Component {
   };
 
   renderItem = ({item}) => {
+    const {open} = this.state;
     return (
       <ListItem.Swipeable
         onPress={() => {
@@ -146,31 +151,38 @@ class Home extends Component {
     console.log('didmount');
     this.getData();
   }
-
+  setOpen = e => {
+    this.setState({
+      open: e,
+    });
+  };
   render() {
+    const {open} = this.state;
     console.log('assdsd', this.state.dataUser);
     return (
-      <View style={{flex: 1}}>
-        <FlatList
-          data={this.state.dataUser}
-          keyExtractor={(item, idx) => idx}
-          renderItem={this.renderItem}
-          onRefresh={() => this.getData(1)}
-          refreshing={this.state.refresh}
-          onEndReached={() => this.getData(this.state.page + 1)}
-          onEndReachedThreshold={0.6}
-          ListHeaderComponent={this.renderHeader}
-        />
-        <TouchableOpacity style={styles.row}>
-          <Text style={styles.nameTxt} onPress={this.props.logoutHandler}>
-            LOGOUT
-          </Text>
-          <Text style={styles.nameTxt} onPress={this.addNew}>
-            addnew
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity />
-      </View>
+      <SafeAreaProvider>
+        <View style={{flex: 2}}>
+          <FlatList
+            data={this.state.dataUser}
+            keyExtractor={(item, idx) => idx}
+            renderItem={this.renderItem}
+            onRefresh={() => this.getData(1)}
+            refreshing={this.state.refresh}
+            onEndReached={() => this.getData(this.state.page + 1)}
+            onEndReachedThreshold={0.6}
+            ListHeaderComponent={this.renderHeader}
+          />
+          <TouchableOpacity style={styles.row}>
+            <Text style={styles.nameTxt} onPress={this.props.logoutHandler}>
+              LOGOUT
+            </Text>
+            <Text style={styles.nameTxt} onPress={this.addNew}>
+              addnew
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity />
+        </View>
+      </SafeAreaProvider>
     );
   }
 }
