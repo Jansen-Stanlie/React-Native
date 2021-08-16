@@ -1,6 +1,8 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {Button, Input, ListItem} from 'react-native-elements';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   View,
   Text,
@@ -13,14 +15,28 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Illustration from './undraw.svg';
 import CallAPIVanilla from './Pages/CallApiAxios';
-
+import Home from './screen/Home';
+const Stack = createNativeStackNavigator();
+function Test() {
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'red',
+        alignItems: 'center',
+      }}>
+      <Text>Makan</Text>
+    </View>
+  );
+}
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      loginStat: true,
+      loginStat: false,
     };
   }
 
@@ -39,15 +55,12 @@ class App extends Component {
   render() {
     if (this.state.loginStat) {
       return (
-        <SafeAreaProvider>
-          <SafeAreaView>
-            <ScrollView>
-              <View>
-                <CallAPIVanilla />
-              </View>
-            </ScrollView>
-          </SafeAreaView>
-        </SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator initialRouteName="About">
+            <Stack.Screen name="Login" component={CallAPIVanilla} />
+            <Stack.Screen name="About" component={Home} />
+          </Stack.Navigator>
+        </NavigationContainer>
       );
     }
     return (

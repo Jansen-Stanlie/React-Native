@@ -38,31 +38,33 @@ class CallAPIVanilla extends Component {
   render() {
     console.log('data user', this.state.dataUser);
     return (
-      <View style={styles.textTitle}>
-        <Header
+      <ScrollView>
+        <View style={styles.textTitle}>
+          {/* <Header
           placement="center"
           leftComponent={{icon: 'menu', color: '#fff'}}
           centerComponent={{text: 'CONTACT LIST', style: {color: '#fff'}}}
           rightComponent={{icon: 'home', color: '#fff'}}
-        />
+        /> */}
 
-        {/* <Button title="GET DATA" onPress={this.getData} /> */}
-        {this.state.dataUser.map((data, i) => (
-          <ListItem key={i}>
-            <Avatar source={{uri: data.avatar}} style={styles.avatar} />
-            <ListItem.Content>
-              <Text>{`${data.first_name} ${data.last_name}`}</Text>
-              <Text>{`${data.email}`}</Text>
-            </ListItem.Content>
-          </ListItem>
-        ))}
+          {/* <Button title="GET DATA" onPress={this.getData} /> */}
+          {this.state.dataUser.map((data, i) => (
+            <ListItem key={i}>
+              <Avatar source={{uri: data.avatar}} style={styles.avatar} />
+              <ListItem.Content>
+                <Text>{`${data.first_name} ${data.last_name}`}</Text>
+                <Text>{`${data.email}`}</Text>
+              </ListItem.Content>
+            </ListItem>
+          ))}
 
-        <View style={styles.line} />
-        {/* <Button title="POST DATA" onPress={postData} />
+          <View style={styles.line} />
+          {/* <Button title="POST DATA" onPress={postData} />
         <Text>Response POST DATA</Text>
         <Text>{dataJob.name}</Text>
         <Text>{dataJob.job}</Text> */}
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -70,6 +72,6 @@ const styles = StyleSheet.create({
   container: {padding: 20},
   textTitle: {textAlign: 'center'},
   line: {height: 2, backgroundColor: 'black', marginVertical: 20},
-  avatar: {width: 100, height: 100, borderRadius: 100 / 2},
+  avatar: {width: 100, height: 100, borderRadius: 50},
 });
 export default CallAPIVanilla;
