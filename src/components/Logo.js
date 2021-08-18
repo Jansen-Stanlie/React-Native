@@ -1,8 +1,8 @@
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
-
+import Illustration from '../assets/undraw.svg';
 export default function Logo() {
-  return <Image source={require('../assets/logo.png')} style={styles.image} />;
+  return <Illustration width={354} height={125} margin={20} />;
 }
 
 const styles = StyleSheet.create({

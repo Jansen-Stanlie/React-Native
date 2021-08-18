@@ -12,10 +12,16 @@ import {emailValidator} from '../helpers/emailValidator';
 import {passwordValidator} from '../helpers/passwordValidator';
 
 export default function LoginScreen({navigation}) {
-  useEffect;
+  const [dataUSer, setDataUser] = useState({
+    dataUSer: [],
+  });
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
-
+  useEffect(() => {
+    console.log('Didmount Jalan');
+    console.log();
+    getData();
+  }, []);
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
@@ -28,6 +34,14 @@ export default function LoginScreen({navigation}) {
       index: 0,
       routes: [{name: 'Dashboard'}],
     });
+  };
+  const getData = () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(json => {
+        console.log(json);
+        setDataUser(json.data);
+      });
   };
 
   return (
@@ -56,12 +70,12 @@ export default function LoginScreen({navigation}) {
         errorText={password.error}
         secureTextEntry
       />
-      <View style={styles.forgotPassword}>
+      {/* <View style={styles.forgotPassword}>
         <TouchableOpacity
           onPress={() => navigation.navigate('ResetPasswordScreen')}>
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
-      </View>
+      </View> */}
       <Button mode="contained" onPress={onLoginPressed}>
         Login
       </Button>

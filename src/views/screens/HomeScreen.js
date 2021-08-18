@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React from 'react';
 import {
   Dimensions,
@@ -38,13 +39,13 @@ const HomeScreen = ({navigation}) => {
                 style={{
                   ...style.categoryListText,
                   color:
-                    selectedCategoryIndex == index
+                    selectedCategoryIndex === index
                       ? COLORS.primary
                       : COLORS.grey,
                 }}>
                 {item}
               </Text>
-              {selectedCategoryIndex == index && (
+              {selectedCategoryIndex === index && (
                 <View
                   style={{
                     height: 3,
@@ -76,7 +77,7 @@ const HomeScreen = ({navigation}) => {
     });
     return (
       <TouchableOpacity
-        disabled={activeCardIndex != index}
+        disabled={activeCardIndex !== index}
         activeOpacity={1}
         onPress={() => navigation.navigate('DetailsScreen', hotel)}>
         <Animated.View style={{...style.card, transform: [{scale}]}}>
@@ -176,7 +177,7 @@ const HomeScreen = ({navigation}) => {
         <CategoryList />
         <View>
           <Animated.FlatList
-            onMomentumScrollEnd={(e) => {
+            onMomentumScrollEnd={e => {
               setActiveCardIndex(
                 Math.round(e.nativeEvent.contentOffset.x / cardWidth),
               );
