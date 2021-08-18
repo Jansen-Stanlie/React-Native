@@ -4,12 +4,14 @@ import Logo from '../components/Logo';
 import Header from '../components/Header';
 import Paragraph from '../components/Paragraph';
 import Button from '../components/Button';
+import HeaderWA from '../components/HeaderWA';
 
 export default function Dashboard({navigation}) {
   return (
     <Background>
       <Logo />
       <Header>Let’s start</Header>
+      <HeaderWA />
       <Paragraph>
         Your amazing app starts here. Open you favorite code editor and start
         editing this project.

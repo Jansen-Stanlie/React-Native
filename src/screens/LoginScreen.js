@@ -12,17 +12,15 @@ import {emailValidator} from '../helpers/emailValidator';
 import {passwordValidator} from '../helpers/passwordValidator';
 
 export default function LoginScreen({navigation}) {
-  const [dataUSer, setDataUser] = useState({
-    dataUSer: [],
-  });
+  const [dataUser, setDataUser] = useState([]);
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
   useEffect(() => {
     console.log('Didmount Jalan');
-    console.log();
     getData();
   }, []);
   const onLoginPressed = () => {
+    console.log('datauser', dataUser);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
     if (emailError || passwordError) {
@@ -30,17 +28,31 @@ export default function LoginScreen({navigation}) {
       setPassword({...password, error: passwordError});
       return;
     }
-    navigation.reset({
-      index: 0,
-      routes: [{name: 'Dashboard'}],
-    });
+    console.log(dataUser[0].name);
+    console.log(password);
+    for (let i = 0; i < dataUser.length; i++) {
+      if (
+        email.value === dataUser[i].email &&
+        password.value === dataUser[i].name
+      ) {
+        return navigation.reset({
+          index: 0,
+          routes: [{name: 'Dashboard'}],
+        });
+      }
+    }
+    setEmail({...email, error: ''});
+    setPassword({...password, error: 'email or password not matched'});
   };
   const getData = () => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(json => {
         console.log(json);
-        setDataUser(json.data);
+        setDataUser(json);
+      })
+      .catch(e => {
+        console.log(e);
       });
   };
 
