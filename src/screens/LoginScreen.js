@@ -31,10 +31,7 @@ export default function LoginScreen({navigation}) {
     console.log(dataUser[0].name);
     console.log(password);
     for (let i = 0; i < dataUser.length; i++) {
-      if (
-        email.value === dataUser[i].email &&
-        password.value === dataUser[i].name
-      ) {
+      if (email.value === 'Jansen@gmail.com' && password.value === 'Jansen@') {
         return navigation.reset({
           index: 0,
           routes: [{name: 'Dashboard'}],

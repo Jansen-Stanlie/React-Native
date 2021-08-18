@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const HeaderWA = () => (
+const HeaderWA = navigation => (
   <View style={styles.top}>
     <Text style={styles.logo}>WhatsApp</Text>
     <View style={styles.icons}>
@@ -13,8 +13,15 @@ const HeaderWA = () => (
       <TouchableOpacity>
         <Icon name="chat" color="#fff" size={23} style={{padding: 5}} />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Icon name="more-vert" color="#fff" size={23} style={{padding: 5}} />
+      <TouchableOpacity
+        mode="outlined"
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{name: 'StartScreen'}],
+          })
+        }>
+        <Icon name="logout" color="#fff" size={23} style={{padding: 5}} />
       </TouchableOpacity>
     </View>
   </View>

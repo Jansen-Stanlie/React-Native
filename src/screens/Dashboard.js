@@ -8,14 +8,14 @@ import HeaderWA from '../components/HeaderWA';
 
 export default function Dashboard({navigation}) {
   return (
-    <Background>
-      <Logo />
-      <Header>Let’s start</Header>
+    <>
+      {/* <Logo /> */}
+      {/* <Header>Let’s start</Header> */}
       <HeaderWA />
-      <Paragraph>
+      {/* <Paragraph>
         Your amazing app starts here. Open you favorite code editor and start
         editing this project.
-      </Paragraph>
+      </Paragraph> */}
       <Button
         mode="outlined"
         onPress={() =>
@@ -26,6 +26,6 @@ export default function Dashboard({navigation}) {
         }>
         Logout
       </Button>
-    </Background>
+    </>
   );
 }
