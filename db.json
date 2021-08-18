@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "name": "Evita",
+      "email": "Evita88@gmail.com",
+      "bidang": "Besok Jalan Jalan",
+      "id": 4
+    },
+    {
+      "name": "Jansen",
+      "email": "Janse@gmail.com",
+      "bidang": "Besok UAS",
+      "id": 5
+    }
+  ]
+}
